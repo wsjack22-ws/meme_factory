@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Token</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+</head>
+<body>
+    <h1>Create Your ERC20 Token</h1>
+    <form id="tokenForm">
+        <label for="tokenName">Token Name:</label>
+        <input type="text" id="tokenName" name="tokenName" required>
+        <label for="tokenSymbol">Token Symbol:</label>
+        <input type="text" id="tokenSymbol" name="tokenSymbol" required>
+        <label for="tokenSupply">Token Supply:</label>
+        <input type="number" id="tokenSupply" name="tokenSupply" required>
+        <button type="submit">Create Token</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('tokenForm');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const tokenName = document.getElementById('tokenName').value;
+            const tokenSymbol = document.getElementById('tokenSymbol').value;
+            const tokenSupply = document.getElementById('tokenSupply').value;
+
+            if (window.ethereum) {
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const signer = provider.getSigner();
+                deployToken(signer, tokenName, tokenSymbol, tokenSupply);
+            } else {
+                console.error('Ethereum wallet is not connected');
+            }
+        });
+
+        async function deployToken(signer, tokenName, tokenSymbol, tokenSupply) {
+            // ethers.js逻辑来部署智能合约
+            // ...
+        }
+    </script>
+</body>
+</html>
